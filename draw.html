@@ -1,0 +1,53 @@
+<body style="overflow: hidden;">
+<canvas id="dyDraw" style="overflow: hidden;">你的浏览器不支持HTML5 Canvas</canvas>
+</body>
+<script type="text/javascript">
+    function $(id) {
+        return document.getElementById(id);
+    }
+    $('dyDraw').width = document.body.clientWidth;
+    $('dyDraw').height = document.body.clientHeight;
+    if (window.addEventListener) {
+        window.addEventListener('load', function() {
+            var canvas, canvastext;
+            var hua = false;
+
+            function dyDrawing() {
+                canvas = $('dyDraw');
+                canvastext = canvas.getContext('2d');
+                canvas.addEventListener('mousedown', canvasMouse, false);
+                canvas.addEventListener('mousemove', canvasMouse, false);
+                window.addEventListener('mouseup', canvasMouse, false);
+            }
+
+            function canvasMouse(dy) {
+                var x, y;
+                if (dy.layerX || dy.layerX == 0) {
+                    x = dy.layerX;
+                    y = dy.layerY;
+                } else if (dy.offsetX || dy.offsetX == 0) {
+                    x = dy.offsetX;
+                    y = dy.offsetY;
+                }
+                x -= dyDraw.offsetLeft;
+                y -= dyDraw.offsetTop;
+                if (dy.type == 'mousedown') {
+                    hua = false;
+                    canvastext.beginPath();
+                    canvastext.moveTo(x, y);
+                    hua = true;
+                } else if (dy.type == 'mousemove') {
+                    if (hua) {
+                        canvastext.strokeStyle = "rgb(255,0,0)";
+                        canvastext.lineWidth = 9;
+                        canvastext.lineTo(x, y);
+                        canvastext.stroke();
+                    }
+                } else if (dy.type == 'mouseup') {
+                    hua = false;
+                }
+            }
+            dyDrawing();
+        }, false);
+    }
+</script>
