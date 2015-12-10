@@ -15,3 +15,14 @@ function getRating(rating) {
     if(rating > 5 || rating < 0) throw new Error('数字不在范围内');
     return '★★★★★☆☆☆☆☆'.substring(5 - rating, 10 - rating);
 }
+
+
+//给定一个list，返回这些元素组成的最大数，例如[5, 3, 31, 2],返回53312;
+function f(i) {
+    return +(i.sort(compare).join(''))
+}
+
+function compare(a, b) {
+     var as = a + '', bs = b + '';
+     return (bs + as) - (as + bs);
+}
