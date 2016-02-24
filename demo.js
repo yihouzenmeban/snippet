@@ -26,3 +26,17 @@ function compare(a, b) {
      var as = a + '', bs = b + '';
      return (bs + as) - (as + bs);
 }
+
+
+//数组降维  http://www.cnblogs.com/front-end-ralph/p/4871332.html
+function reduceArray (arr) {
+    var reduced = [];
+    for (var i = 0; i < arr.length; i++) {
+        reduced = reduced.concat(arr[i]);
+    }
+    return reduced;
+}
+//或者
+function reduceArray(arr) {
+    return Array.prototype.concat.apply([], arr);
+}
