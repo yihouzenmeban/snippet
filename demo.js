@@ -69,3 +69,24 @@ function leftpad(str, len, ch) {
     }
     return padch + str;
 }
+
+
+//给一个数组和一个值，返回一个下标数组，对应的值相加为这个值；
+//例如给定一个数组 [1, 4, 6, 10, 12] 和 11,因为 1 + 10 = 11，而对应的index为 0 和 3，
+//所以返回数组 [1, 10]
+var toSum = function(nums, target) {
+    var map ={},
+        len = nums.length,
+        i,
+        needvalue,
+        value;
+    for (i = 0; i < len; i++) {
+        value = nums[i];
+        needvalue = target - value;
+        if (needvalue in map) {
+            return [map[needvalue], i];
+        } else {
+            map[value] = i;
+        }
+    }
+}
