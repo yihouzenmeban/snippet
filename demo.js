@@ -46,7 +46,7 @@ function reduceArray(arr) {
 //把 str 用 ch 补全到长度为 len
 function lefpad(str, len, ch) {
     str = '' + str;
-    if (ch && ch !== 0) ch = ' ';
+    if (!ch && ch !== 0) ch = ' ';
     var padlen = len - str.length;
     if (padlen <= 0) {
         return str;
@@ -57,9 +57,26 @@ function lefpad(str, len, ch) {
 //复杂度为 O(LogN)的版本的写法
 function leftpad(str, len, ch) {
     str = '' + str;
-    if (ch && ch !== 0) ch = ' ';
+    if (!ch && ch !== 0) ch = ' ';
     var padlen = len - str.length;
-    if (paddlen <= 0 ) return str;
+    if (padlen <= 0 ) return str;
+    while (true) {
+        if (padlen & 1) {
+            str = ch + str;
+            if (padlen === 1) {
+                return str;
+            }
+        }
+        ch += ch;
+        padlen >>= 1;
+    }
+}
+//简洁版
+function leftpad(str, len, ch) {
+    str = '' + str;
+    if (!ch && ch !== 0) ch = ' ';
+    var padlen = len - str.length;
+    if (padlen <= 0 ) return str;
     var padch = padlen & 1 ? ch : '';
     while(padlen >>= 1) {
         ch += ch;
